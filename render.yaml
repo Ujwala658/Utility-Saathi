@@ -1,0 +1,19 @@
+# Render Blueprint: one web service that builds the client and serves it plus the API.
+services:
+  - type: web
+    name: utility-saathi
+    runtime: node
+    plan: free
+    buildCommand: npm run setup && npm run build
+    startCommand: npm --prefix server start
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_VERSION
+        value: 22.22.0
+      # Keep devDependencies (tsx, vite, typescript) installed for the build and start steps.
+      - key: NPM_CONFIG_PRODUCTION
+        value: "false"
+      - key: DATABASE_FILE
+        value: utility-saathi.db
+      - key: ALLOW_DEMO_RESET
+        value: "true"
