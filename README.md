@@ -32,6 +32,16 @@ The database (`server/utility-saathi.db`) is created and seeded on first start. 
 
 The sign-in page has one-click buttons for each account.
 
+## Deploying (Render)
+
+The app is one long-running Node service (Express API + SQLite + the built client), so it does not fit Vercel's serverless model. Deploy it on Render instead:
+
+1. In Render, choose **New > Blueprint** and pick this repository. Render reads `render.yaml`.
+2. Apply it. Render runs `npm run setup && npm run build`, then `npm --prefix server start`, and checks `/api/health`.
+3. Open the service URL and sign in with a demo account (password `demo1234`).
+
+On the free plan the disk is temporary, so the demo data is reseeded whenever the service restarts or sleeps.
+
 ## Hackathon demo script (about 6 minutes)
 
 Before each run, use **Administration → Reset demo data**, or run `npm run seed`. Report times are relative to "now", so live grouping works on every run.
